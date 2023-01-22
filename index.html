@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    #body_container {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      background-color: #000
+    }
+
+  </style>
+  <script defer type="module">
+    import { Fireworks } from 'https://cdn.skypack.dev/fireworks-js';
+    const body_container = document.getElementById("body_container")
+    const options = {
+      hue: {
+        min: 0,
+        max: 360
+      },
+      mouse: {
+        click: false,
+        move: true, //マウスカーソルに追従する
+        max: 1
+      }
+    }
+    const fireworks = new Fireworks(body_container, options);
+
+    fireworks.start();
+  </script>
+</head>
+
+<body>
+  <div id="body_container"></div>
+</body>
+
+</html>
