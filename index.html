@@ -1,8 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
+  <meta charset="UTF-8">
+  <title>Firework-Demo2</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <style>
+    #btn-play {
+      width: 100px;
+      height: 40px;
+      padding: 10px;
+      font-size: 18px;
+      z-index: 99;
+    }
+
     #body_container {
       top: 0;
       left: 0;
@@ -11,8 +24,9 @@
       position: fixed;
       background-color: #000;
       /* background: url("./星空_2.jpg"); */
-      background-size: cover;
+      /* background-size: cover; */
       background-repeat: no-repeat;
+      z-index: 1;
     }
 
   </style>
@@ -20,15 +34,15 @@
     import { Fireworks } from 'https://cdn.skypack.dev/fireworks-js';
     const body_container = document.getElementById("body_container")
     const options = {
-      opacity: 0.3,//花火が消えるまでの長さ
-      acceleration: 1.05,
-      gravity: 1.5,
-      // traceLength: 1,
-      traceSpeed: 3,//打ち上がるまでの長さ
-      particles: 50,
-      explosion: 10,//爆発の長さ？
-      intensity: 20,//花火の上がる頻度
-      flickering: 30,
+      opacity: 0.1,//花火が消えるまでの長さ
+      acceleration: 1.02,//花火が上がる速度
+      gravity: 1.5,//花火が上がってから消えるまでの時間
+      // traceLength: 1,//打ち上がるまでの直線
+      traceSpeed: 0.1,//打ち上がるまでの長さ
+      particles: 100,
+      explosion: 15,//爆発の長さ？
+      intensity: 10,//花火の上がる頻度
+      flickering: 50,
       // lineStyle: 'round',
       hue: {
         min: 0,
@@ -74,17 +88,32 @@
       //   }
       // }
     }
+    // 花火のインスタンス生成
     const fireworks = new Fireworks(body_container, options);
 
+    // 花火スタート
     fireworks.start();
+    window.onload = function () {
+      // ここに読み込み完了時に実行してほしい内容を書く。
+      const btn = document.querySelector("#btn-play");
+      btn.addEventListener("click", () => {
+        alert("ボタンをクリックしたよ")
+        // pausedがtrue=>停止, false=>再生中
+      });
+    };
+
+
   </script>
 </head>
 
 <body>
-  <div id="body_container"></div>
-  <audio loop controls src="りりあ_君の隣で.mp4" preload="auto">
-    あなたのブラウザーは <code>audio</code>要素をサポートしていません。
-  </audio>
+  <div id="body_container">
+    <audio loop controls src="LOVELY 夢見るLOVELY BOY_360p.mp4" preload="auto">
+      あなたのブラウザーは <code>audio</code>要素をサポートしていません。
+    </audio>
+    <!-- 再生ボタン -->
+    <button id="btn-play" type="button"><i class="fas fa-play"></i></button>
+  </div>
 </body>
 
 </html>
