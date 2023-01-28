@@ -48,10 +48,6 @@
         min: 0,
         max: 360
       },
-      // delay: {
-      //   min: 0,
-      //   max: 300
-      // },
       lineWidth: {
         explosion: {//花火が爆発した時の太さ
           min: 1,
@@ -75,42 +71,110 @@
         min: 80,
         max: 100
       },
-      // sound: {
-      //   enabled: true,
-      //   files: [
-      //     'sound2.mp3',
-      //     'sound1.mp3',
-      //     'sound0.mp3',
-      //   ],
-      //   volume: {
-      //     min: 60,
-      //     max: 80
-      //   }
-      // }
     }
     // 花火のインスタンス生成
     const fireworks = new Fireworks(body_container, options);
 
-    // 花火スタート
-    fireworks.start();
     window.onload = function () {
       // ここに読み込み完了時に実行してほしい内容を書く。
-      const btn = document.querySelector("#btn-play");
-      btn.addEventListener("click", () => {
-        alert("ボタンをクリックしたよ")
-        // pausedがtrue=>停止, false=>再生中
-      });
-    };
+      const btn = document.getElementById("btn-play");
+      const music = document.getElementById("Music");
 
+      btn.addEventListener("click", () => {
+        if (!music.paused) {
+          // 再生中の時
+          btn.innerHTML = '<i class="fas fa-play"></i>';  // 「再生ボタン」に切り替え
+          music.pause();//音楽を停止
+          // 花火一時停止
+          fireworks.pause();
+        }
+        else {
+          // 停止中の時
+          btn.innerHTML = '<i class="fas fa-pause"></i>';  // 「一時停止ボタン」に切り替え
+          music.play();
+          // 花火スタート
+          fireworks.start();
+        }
+
+      });
+
+      // MEMO::56秒でサビに入るからそこで花火を一気に出す
+      // music.currentTime//現在再生中の時間を取得
+      // 常に再生時間を取得して処理する
+      music.addEventListener("timeupdate", () => {
+        if (55 < music.currentTime && music.currentTime < 75) {
+          // MEMO::
+          // この中で処理が重くなるのは（timeupdate）常に監視して処理をしてるから
+          // 1回のみ実行する処理にすればいい
+          fireworks.stop();
+
+          const options = {
+            opacity: 0.1,//花火が消えるまでの長さ
+            acceleration: 1.52,//花火が上がる速度
+            gravity: 1.5,//花火が上がってから消えるまでの時間
+            // traceLength: 1,//打ち上がるまでの直線
+            traceSpeed: 0.1,//打ち上がるまでの長さ
+            particles: 100,
+            explosion: 15,//爆発の長さ？
+            intensity: 10,//花火の上がる頻度
+            flickering: 50,
+            // lineStyle: 'round',
+            hue: {
+              min: 0,
+              max: 360
+            },
+            lineWidth: {
+              explosion: {//花火が爆発した時の太さ
+                min: 1,
+                max: 5
+              },
+              trace: {//花火の発射する種の太さ
+                min: 1,
+                max: 5
+              }
+            },
+            rocketsPoint: {//発射地点
+              min: 50,
+              max: 50
+            },
+            mouse: {
+              click: false,
+              // move: true, //マウスカーソルに追従する
+              // max: 3
+            },
+            brightness: {//花火の輝き
+              min: 80,
+              max: 100
+            },
+          }
+
+          // 花火のインスタンス生成
+          const fireworks = new Fireworks(body_container, options);
+
+          // 花火スタート
+          fireworks.start();
+        }
+      });
+
+      /**
+       * [event] 再生終了時に実行
+       */
+      music.addEventListener("ended", () => {
+        btn.innerHTML = '<i class="fas fa-play"></i>';  // 「再生ボタン」に変更
+      })
+
+    };
 
   </script>
 </head>
 
 <body>
   <div id="body_container">
-    <audio loop controls src="LOVELY 夢見るLOVELY BOY_360p.mp4" preload="auto">
+    <!-- 音声ファイル -->
+    <audio loop id="Music" src="LOVELY 夢見るLOVELY BOY_360p.mp4" preload="auto">
       あなたのブラウザーは <code>audio</code>要素をサポートしていません。
     </audio>
+
     <!-- 再生ボタン -->
     <button id="btn-play" type="button"><i class="fas fa-play"></i></button>
   </div>
