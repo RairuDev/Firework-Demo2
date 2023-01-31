@@ -4,3 +4,7 @@
 JS_Fireworks(公式でもサイト)：https://fireworks.js.org/
 
 JS_Fireworks（github）:https://github.com/crashmax-dev/fireworks-js/
+
+
+花火のオプションを更新するメソッド
+.currentOptions
