@@ -1,8 +1,8 @@
 #btn-play {
-  width: 100px;
-  height: 40px;
+  width: 130px;
+  height: 50px;
   padding: 10px;
-  font-size: 18px;
+  font-size: 20px;
   z-index: 99;
 }
 
@@ -17,4 +17,15 @@
   /* background-size: cover; */
   background-repeat: no-repeat;
   z-index: 1;
+}
+
+/* 押しにくいためスマホサイズの再生ボタンを大きくした */
+/* 640px以下に適用されるCSS（スマホ用） */
+@media screen and (max-width: 640px) {
+
+  #btn-play {
+    width: 35%;
+    height: 5%;
+    font-size: 20px;
+  }
 }

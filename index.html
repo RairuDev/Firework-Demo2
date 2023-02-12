@@ -8,6 +8,8 @@
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="style.css">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <script defer type="module">
     import { Fireworks } from 'https://cdn.skypack.dev/fireworks-js';
     var options = {
@@ -47,7 +49,7 @@
     }
     var fireworks = new Fireworks(body_container, options);
 
-    window.onload = function () {
+    window.onload = () => {
       const body_container = document.getElementById("body_container")
       const btn = document.getElementById("btn-play");
       const music = document.getElementById("Music");
