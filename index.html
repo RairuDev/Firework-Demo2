@@ -8,13 +8,8 @@
     integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href="style.css">
-  <!-- jsDelivr  -->
-  <script src="https://cdn.jsdelivr.net/npm/fireworks-js@2.x/dist/index.umd.js"></script>
-
-  <!-- UNPKG -->
-  <script src="https://unpkg.com/fireworks-js@2.x/dist/index.umd.js"></script>
-  <script>
-    // import { Fireworks } from 'https://cdn.skypack.dev/fireworks-js';
+  <script defer type="module">
+    import { Fireworks } from 'https://cdn.skypack.dev/fireworks-js';
     var options = {
       opacity: 0.1,//花火が消えるまでの長さ
       acceleration: 1.02,//花火が上がる速度
@@ -50,11 +45,11 @@
         max: 100
       },
     }
+    var fireworks = new Fireworks(body_container, options);
+
     window.onload = function () {
       const body_container = document.getElementById("body_container")
 
-      var fireworks = new Fireworks.default(body_container);
-      fireworks.start()
       var num = 0;//フラグ用
 
       const btn = document.getElementById("btn-play");
@@ -63,32 +58,39 @@
       // music.currentTime//現在再生中の時間を取得
       // 常に再生時間を取得して処理する
       music.addEventListener("timeupdate", () => {
-        if (5 < music.currentTime && music.currentTime < 75) {
+        if (55 < music.currentTime && music.currentTime < 75) {
           num = ++num;//何回この処理を通っているかをカウント
 
-          console.log(num);
-          // MEMO::初回のみ実行(じゃなきゃ重くなる)
+          // console.log(num);
+          // MEMO::重くなるため初回のみ実行
           if (num === 1) {
             options = {
-              acceleration: 1.52,//花火が上がる速度
-              intensity: 50,//花火の上がる頻度
+              acceleration: 1.32,//花火が上がる速度
+              intensity: 30,//花火の上がる頻度
             }
             console.log(options)
-            console.log("ここの処理は一度だけ通る")
-            console.log("ここまで処理通っているか？")
+            fireworks.updateOptions(options)
           }
 
-
+          // MEMO::重くなるため初回のみ実行
+          if (num === 19) {
+            options = {
+              acceleration: 1.02,//花火が上がる速度
+              intensity: 10,//花火の上がる頻度
+            }
+            console.log(options)
+            fireworks.updateOptions(options)
+          }
         }
       });
 
       // 再生ボタンの処理
       btn.addEventListener("click", () => {
         if (!music.paused) {
-          // MEMO::なぜかこの中の中でfireworksの値が上書きしたのが消えている
-          console.log(fireworks)
+          // console.log(fireworks)
+          // MEMO::ここで再生ボタンを押したら、optionsを更新してるから花火の速度が変わっている
           console.log(fireworks.currentOptions)
-          console.log(fireworks.updateOptions(options))
+          // console.log(fireworks.updateOptions(options))
           // 再生中の時
           btn.innerHTML = '<i class="fas fa-play"></i>';  // 「再生ボタン」に切り替え
           music.pause();//音楽を停止
@@ -100,6 +102,7 @@
           btn.innerHTML = '<i class="fas fa-pause"></i>';  // 「一時停止ボタン」に切り替え
           music.play();
           console.log((options))
+          console.log(fireworks.currentOptions)
           // 花火スタート
           fireworks.start();
         }
