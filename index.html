@@ -12,23 +12,25 @@
     content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
   <script defer type="module">
     import { Fireworks } from 'https://cdn.skypack.dev/fireworks-js';
+    // TODO:: 花火をスマホ版に小さくする
     var options = {
       opacity: 0.1,//花火が消えるまでの長さ
       acceleration: 1.02,//花火が上がる速度
-      gravity: 1.5,//花火が上がってから消えるまでの時間
+      gravity: 1.5,//花火が上がってから落ちるまでの時間
       traceSpeed: 0.1,//打ち上がるまでの長さ
-      particles: 100,
+      particles: 100,//花火の爆発時の広がり
       explosion: 15,//爆発の長さ？
       intensity: 10,//花火の上がる頻度
       flickering: 50,
+      // friction: 0.95,//花火の爆発時の広がり(小さいと下向きになる)
       hue: {
         min: 0,
         max: 360
       },
       lineWidth: {
-        explosion: {//花火が爆発した時の太さ
+        explosion: {//花火が爆発した時の線の太さ
           min: 1,
-          max: 5
+          max: 3
         },
         trace: {//花火の発射する種の太さ
           min: 1,
@@ -42,7 +44,7 @@
       mouse: {
         click: false,
       },
-      brightness: {//花火の輝き
+      brightness: {//花火の爆発時の輝き
         min: 80,
         max: 100
       },
