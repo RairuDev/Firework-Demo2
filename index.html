@@ -51,11 +51,10 @@
       const body_container = document.getElementById("body_container")
       const btn = document.getElementById("btn-play");
       const music = document.getElementById("Music");
-      // MEMO::56秒でサビに入るからそこで花火を一気に出す
       // music.currentTime//現在再生中の時間を取得
       // 常に再生時間を取得して処理する
       music.addEventListener("timeupdate", () => {
-        // サビの時のみ花火の速度を速くする
+        // サビの時に花火の速度を速くする
         if ((55 < music.currentTime && music.currentTime < 75) || (110 < music.currentTime && music.currentTime < 129) || (172 < music.currentTime && music.currentTime < 224)) {
           options = {
             acceleration: 1.07,//花火が上がる速度
@@ -63,7 +62,6 @@
           }
           console.log(options)
           fireworks.updateOptions(options)
-
         }
         // 花火の速度を戻す
         else {
