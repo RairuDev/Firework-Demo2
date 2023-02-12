@@ -50,37 +50,29 @@
     window.onload = function () {
       const body_container = document.getElementById("body_container")
 
-      var num = 0;//フラグ用
-
       const btn = document.getElementById("btn-play");
       const music = document.getElementById("Music");
       // MEMO::56秒でサビに入るからそこで花火を一気に出す
       // music.currentTime//現在再生中の時間を取得
       // 常に再生時間を取得して処理する
       music.addEventListener("timeupdate", () => {
-        if (55 < music.currentTime && music.currentTime < 75) {
-          num = ++num;//何回この処理を通っているかをカウント
-
-          // console.log(num);
-          // MEMO::重くなるため初回のみ実行
-          if (num === 1) {
-            options = {
-              acceleration: 1.32,//花火が上がる速度
-              intensity: 30,//花火の上がる頻度
-            }
-            console.log(options)
-            fireworks.updateOptions(options)
+        // サビの時のみ花火の速度を速くする
+        if ((55 < music.currentTime && music.currentTime < 75) || (110 < music.currentTime && music.currentTime < 129) || (172 < music.currentTime && music.currentTime < 224)) {
+          options = {
+            acceleration: 1.12,//花火が上がる速度
+            intensity: 25,//花火の上がる頻度
           }
+          console.log(options)
+          fireworks.updateOptions(options)
 
-          // MEMO::重くなるため初回のみ実行
-          if (num === 19) {
-            options = {
-              acceleration: 1.02,//花火が上がる速度
-              intensity: 10,//花火の上がる頻度
-            }
-            console.log(options)
-            fireworks.updateOptions(options)
+        }
+        // 花火の速度を戻す
+        else {
+          options = {
+            acceleration: 1.02,//花火が上がる速度
+            intensity: 10,//花火の上がる頻度
           }
+          fireworks.updateOptions(options)
         }
       });
 
