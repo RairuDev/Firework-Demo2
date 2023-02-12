@@ -49,7 +49,6 @@
 
     window.onload = function () {
       const body_container = document.getElementById("body_container")
-
       const btn = document.getElementById("btn-play");
       const music = document.getElementById("Music");
       // MEMO::56秒でサビに入るからそこで花火を一気に出す
@@ -79,10 +78,7 @@
       // 再生ボタンの処理
       btn.addEventListener("click", () => {
         if (!music.paused) {
-          // console.log(fireworks)
-          // MEMO::ここで再生ボタンを押したら、optionsを更新してるから花火の速度が変わっている
           console.log(fireworks.currentOptions)
-          // console.log(fireworks.updateOptions(options))
           // 再生中の時
           btn.innerHTML = '<i class="fas fa-play"></i>';  // 「再生ボタン」に切り替え
           music.pause();//音楽を停止
@@ -98,7 +94,6 @@
           // 花火スタート
           fireworks.start();
         }
-
       });
 
       /**
