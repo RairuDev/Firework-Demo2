@@ -8,4 +8,7 @@ JS_Fireworks（github）:https://github.com/crashmax-dev/fireworks-js/
 デプロイ先URL: https://junichmiyahara.github.io/Firework-Demo2/
 
 花火のオプションを更新するメソッド
+.updateOptions
+
+現在の花火のオプションを確認するメソッド
 .currentOptions
